@@ -1,0 +1,15 @@
+{
+  "name": "@mancakeswap/scripts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "compile": "echo 'No compile needed'"
+  },
+  "dependencies": {
+    "hardhat": "^2.22.2"
+  },
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.2.3"
+  }
+}
