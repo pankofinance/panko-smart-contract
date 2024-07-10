@@ -136,6 +136,9 @@ abstract contract SmartRouterValidator is ISmartRouterValidator {
         if (params.recipient == SmartRouterConstants.MSG_SENDER && !validDestinationTokens[params.tokenOut]) {
             revert InvalidDestination(params.tokenOut);
         }
+        if (params.amountOutMinimum == 0) {
+            revert InvalidOutputAmount(params.amountOutMinimum);
+        }
         return abi.encodeCall(IV3SwapRouter.exactInputSingle, (params));
     }
 
@@ -149,6 +152,9 @@ abstract contract SmartRouterValidator is ISmartRouterValidator {
         (, address tokenOut, ) = params.path.decodeLastPool();
         if (params.recipient == SmartRouterConstants.MSG_SENDER && !validDestinationTokens[tokenOut]) {
             revert InvalidDestination(tokenOut);
+        }
+        if (params.amountOutMinimum == 0) {
+            revert InvalidOutputAmount(params.amountOutMinimum);
         }
         return abi.encodeCall(IV3SwapRouter.exactInput, (params));
     }
@@ -166,6 +172,9 @@ abstract contract SmartRouterValidator is ISmartRouterValidator {
         if (params.recipient == SmartRouterConstants.MSG_SENDER && !validDestinationTokens[params.tokenOut]) {
             revert InvalidDestination(params.tokenOut);
         }
+        if (params.amountOutMinimum == 0) {
+            revert InvalidOutputAmount(params.amountOutMinimum);
+        }
         return abi.encodeCall(IV3SwapRouter.exactOutputSingle, (params));
     }
 
@@ -179,6 +188,9 @@ abstract contract SmartRouterValidator is ISmartRouterValidator {
         (, address tokenOut, ) = params.path.decodeLastPool();
         if (params.recipient == SmartRouterConstants.MSG_SENDER && !validDestinationTokens[tokenOut]) {
             revert InvalidDestination(tokenOut);
+        }
+        if (params.amountOut == 0) {
+            revert InvalidOutputAmount(params.amountOut);
         }
         return abi.encodeCall(IV3SwapRouter.exactOutput, (params));
     }
