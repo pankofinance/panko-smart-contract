@@ -19,7 +19,7 @@ async function main() {
 
   console.log('Verify farm booster')
   await verifyContract(farmDeployedContracts.FarmBooster, [
-    voterDeployedContracts.VEMan,
+    voterDeployedContracts.VEGain,
     mcV3DeployedContracts.MasterChefV3,
     cA,
     cB,

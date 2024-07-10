@@ -14,7 +14,7 @@ import { abi as MasterChefABI } from '@pancakeswap/masterchef-v3/artifacts/contr
 import { abi as MasterChefV2ABI } from '@pancakeswap/masterchef-v3/artifacts/contracts/MasterChefV2.sol/MasterChefV2.json'
 import { abi as MasterChefV3ABI } from '@pancakeswap/masterchef-v3/artifacts/contracts/MasterChefV3.sol/MasterChefV3.json'
 
-import { abi as VEManABI } from '@pancakeswap/voter/artifacts/contracts/VEMan.sol/VEMan.json'
+import { abi as VEGainABI } from '@pancakeswap/voter/artifacts/contracts/VEGain.sol/VEGain.json'
 import { abi as GaugeVotingABI } from '@pancakeswap/voter/artifacts/contracts/GaugeVoting.sol/GaugeVoting.json'
 import { abi as GaugeVotingAdminUtilABI } from '@pancakeswap/voter/artifacts/contracts/GaugeVotingAdminUtil.sol/GaugeVotingAdminUtil.json'
 import { abi as GaugeVotingBulkABI } from '@pancakeswap/voter/artifacts/contracts/GaugeVotingBulk.sol/GaugeVotingBulk.json'
@@ -65,7 +65,7 @@ async function main() {
   const lm = await import(`@pancakeswap/v3-lm-pool/deployed/${networkName}.json`)
 
   const vote = await import(`@pancakeswap/voter/deployed/${networkName}.json`)
-  const veMan = new ethers.Contract(vote.VEMan, VEManABI, owner)
+  const vegain = new ethers.Contract(vote.VEGain, VEGainABI, owner)
   const gaugeVoting = new ethers.Contract(vote.GaugeVoting, GaugeVotingABI, owner)
   const gaugeVotingAdminUtil = new ethers.Contract(vote.GaugeVotingAdminUtil, GaugeVotingAdminUtilABI, owner)
   // const gaugeVotingBulk = new ethers.Contract(vote.GaugeVotingBulk, GaugeVotingBulkABI, owner)
@@ -113,9 +113,9 @@ async function main() {
   await tx.wait(5)
   console.log('MasterChefV3 setOwner:', tx.hash)
 
-  tx = await veMan.transferOwnership(ADMIN)
+  tx = await vegain.transferOwnership(ADMIN)
   await tx.wait(5)
-  console.log('VEMan setOwner:', tx.hash)
+  console.log('VEGain setOwner:', tx.hash)
 
   tx = await gaugeVoting.transferOwnership(ADMIN)
   await tx.wait(5)

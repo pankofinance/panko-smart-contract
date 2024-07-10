@@ -3,7 +3,7 @@ import { configs } from '@pancakeswap/common/config'
 import { tryVerify } from '@pancakeswap/common/verify'
 import fs from 'fs'
 import { abi as MasterChefV3ABI } from '@pancakeswap/masterchef-v3/artifacts/contracts/MasterChefV3.sol/MasterChefV3.json'
-import { abi as VEManABI } from '@pancakeswap/voter/artifacts/contracts/VEMan.sol/VEMan.json'
+import { abi as VEGainABI } from '@pancakeswap/voter/artifacts/contracts/VEGain.sol/VEGain.json'
 
 import { parseEther } from 'ethers/lib/utils'
 const currentNetwork = network.name
@@ -24,7 +24,7 @@ async function main() {
   const mcV3DeployedContracts = await import(`@pancakeswap/masterchef-v3/deployed/${networkName}.json`)
 
   const FarmBooster = await ethers.getContractFactory('FarmBooster')
-  const farmBooster = await FarmBooster.deploy(voterDeployedContracts.VEMan, mcV3DeployedContracts.MasterChefV3, cA, cB)
+  const farmBooster = await FarmBooster.deploy(voterDeployedContracts.VEGain, mcV3DeployedContracts.MasterChefV3, cA, cB)
   await farmBooster.deployed()
   console.log('FarmBooster deployed to:', farmBooster.address)
 
@@ -32,11 +32,11 @@ async function main() {
   await masterchefV3.updateFarmBoostContract(farmBooster.address)
   console.log('FarmBooster updated in MasterChefV3')
 
-  const veman = new ethers.Contract(voterDeployedContracts.VEMan, VEManABI, owner)
-  await veman.setFarmBooster(farmBooster.address)
-  console.log('FarmBooster updated in VEMan')
+  const vegain = new ethers.Contract(voterDeployedContracts.VEGain, VEGainABI, owner)
+  await vegain.setFarmBooster(farmBooster.address)
+  console.log('FarmBooster updated in VEGain')
 
-  await farmBooster.setVECakeCaller(veman.address)
+  await farmBooster.setVECakeCaller(vegain.address)
   console.log('VECakeCaller updated in FarmBooster')
 
   const contracts = {

@@ -11,7 +11,7 @@ import './interfaces/IProxyForCakePool.sol';
 import './interfaces/IDelegator.sol';
 import './interfaces/IFarmBooster.sol';
 
-contract VEMan is Ownable, ReentrancyGuard {
+contract VEGain is Ownable, ReentrancyGuard {
     using SafeERC20 for IERC20;
 
     // --- Events ---
@@ -203,7 +203,7 @@ contract VEMan is Ownable, ReentrancyGuard {
         decimals = 18;
 
         name = 'Vote-escrowed GainToken';
-        symbol = 'veMAN';
+        symbol = 'VEGain';
     }
 
     /// @notice Initialize for cake pool migration

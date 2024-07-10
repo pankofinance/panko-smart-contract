@@ -5,6 +5,7 @@ import '@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol';
 import '@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol';
 import '@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol';
 import '@openzeppelin/contracts/token/ERC20/IERC20.sol';
+import "@openzeppelin/contracts/utils/Address.sol";
 
 import './base/SmartRouterValidator.sol';
 import './base/Multicall.sol';
@@ -42,7 +43,9 @@ contract FeeHandler is IFeeHandler, UUPSUpgradeable, OwnableUpgradeable, SmartRo
      * Initializing
      */
 
-    constructor() {}
+    constructor() {
+        _disableInitializers();
+    }
 
     function _authorizeUpgrade(address) internal override onlyOwner {}
 
@@ -159,13 +162,18 @@ contract FeeHandler is IFeeHandler, UUPSUpgradeable, OwnableUpgradeable, SmartRo
         for (uint256 i = 0; i < _swapMulticallData.length; i++) {
             _validateSwapInfo(_swapMulticallData[i]);
         }
+        uint256[] memory originalAllowances = new uint256[](_srcTokens.length);
         for (uint256 i = 0; i < _srcTokens.length; i++) {
+            originalAllowances[i] = IERC20(_srcTokens[i]).allowance(address(this), smartRouter);
             _increaseAllowance(_srcTokens[i], smartRouter, type(uint256).max);
         }
         try ISmartRouter(smartRouter).multicall(_deadline, _swapMulticallData) {
             emit Swapped();
         } catch {
             revert SwapFailed();
+        }
+        for (uint256 i = 0; i < _srcTokens.length; i++) {
+            _resetAllowance(_srcTokens[i], smartRouter, originalAllowances[i]);
         }
     }
 
@@ -180,10 +188,15 @@ contract FeeHandler is IFeeHandler, UUPSUpgradeable, OwnableUpgradeable, SmartRo
         }
     }
 
+    function _resetAllowance(address _token, address _spender, uint256 _value) internal {
+        IERC20(_token).safeApprove(_spender, 0); // First set to 0 to prevent issues with certain tokens
+        IERC20(_token).safeApprove(_spender, _value); // Then set back to the original allowance
+    }
+
     function _transferOut(address _token, address _to) internal {
         if (_to == address(this)) return;
         if (_token == ETHER_ADDRESS) {
-            payable(_to).transfer(address(this).balance);
+            Address.sendValue(payable(_to), address(this).balance);
         } else {
             IERC20(_token).safeTransfer(_to, IERC20(_token).balanceOf(address(this)));
         }

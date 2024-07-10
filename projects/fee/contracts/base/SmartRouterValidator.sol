@@ -14,6 +14,7 @@ interface ISmartRouterValidator {
     error InvalidSwapSignature(bytes4 data);
     error InvalidDestination(address dst);
     error InvalidRecipient(address recipient);
+    error InvalidOutputAmount(uint256 amountOut);
 
     function validDestinationTokens(address) external view returns (bool);
 }
@@ -22,6 +23,9 @@ abstract contract SmartRouterValidator is ISmartRouterValidator {
     using Path for bytes;
 
     mapping(address => bool) public validDestinationTokens;
+
+    // Reserved storage slots for future upgrades. Adjust the size as needed.
+    uint256[50] private __reserved;
 
     function _validateSwapInfo(bytes calldata swapData) internal view {
         (bytes4 sig, bytes memory data) = _extractFunctionCalldata(swapData);
@@ -62,6 +66,9 @@ abstract contract SmartRouterValidator is ISmartRouterValidator {
         if (to == SmartRouterConstants.MSG_SENDER && !validDestinationTokens[path[path.length - 1]]) {
             revert InvalidDestination(path[path.length - 1]);
         }
+        if (amountOutMin == 0) {
+            revert invalidoutputamount(amountOutMin);
+        }
         return abi.encodeCall(IV2SwapRouter.swapExactTokensForTokens, (amountIn, amountOutMin, path, to));
     }
 
@@ -75,6 +82,9 @@ abstract contract SmartRouterValidator is ISmartRouterValidator {
         }
         if (to == SmartRouterConstants.MSG_SENDER && !validDestinationTokens[path[path.length - 1]]) {
             revert InvalidDestination(path[path.length - 1]);
+        }
+        if (amountOut == 0) {
+            revert invalidoutputamount(amountOut);
         }
         return abi.encodeCall(IV2SwapRouter.swapTokensForExactTokens, (amountOut, amountInMax, path, to));
     }
@@ -90,6 +100,9 @@ abstract contract SmartRouterValidator is ISmartRouterValidator {
         if (to == SmartRouterConstants.MSG_SENDER && !validDestinationTokens[path[path.length - 1]]) {
             revert InvalidDestination(path[path.length - 1]);
         }
+        if (amountOutMin == 0) {
+            revert invalidoutputamount(amountOutMin);
+        }
         return abi.encodeCall(IStableSwapRouter.exactInputStableSwap, (path, flag, amountIn, amountOutMin, to));
     }
 
@@ -103,6 +116,9 @@ abstract contract SmartRouterValidator is ISmartRouterValidator {
         }
         if (to == SmartRouterConstants.MSG_SENDER && !validDestinationTokens[path[path.length - 1]]) {
             revert InvalidDestination(path[path.length - 1]);
+        }
+        if (amountOut == 0) {
+            revert invalidoutputamount(amountOut);
         }
         return abi.encodeCall(IStableSwapRouter.exactOutputStableSwap, (path, flag, amountOut, amountInMax, to));
     }

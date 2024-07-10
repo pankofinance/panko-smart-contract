@@ -13,15 +13,15 @@ async function main() {
   const mcV3DeployedContracts = await import(`@pancakeswap/masterchef-v3/deployed/${networkName}.json`)
 
   console.log('Verify voter')
-  await verifyContract(deployedContractsVoter.VEMan, [
+  await verifyContract(deployedContractsVoter.VEGain, [
     ethers.constants.AddressZero,
     mcV3DeployedContracts.GainToken,
     ethers.constants.AddressZero,
   ])
-  await verifyContract(deployedContractsVoter.GaugeVoting, [deployedContractsVoter.VEMan])
+  await verifyContract(deployedContractsVoter.GaugeVoting, [deployedContractsVoter.VEGain])
   await verifyContract(deployedContractsVoter.GaugeVotingAdminUtil, [])
   await verifyContract(deployedContractsVoter.GaugeVotingCalc, [deployedContractsVoter.GaugeVoting])
-  await verifyContract(deployedContractsVoter.RevenueSharingPoolFactory, [deployedContractsVoter.VEMan])
+  await verifyContract(deployedContractsVoter.RevenueSharingPoolFactory, [deployedContractsVoter.VEGain])
   await verifyContract(deployedContractsVoter.RevenueSharingPoolGateway, [])
   // await verifyContract('0x34176E7db604EfaEdFCC3B29616D596d910dbcf6', [])
 }

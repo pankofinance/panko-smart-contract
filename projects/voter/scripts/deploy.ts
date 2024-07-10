@@ -12,18 +12,18 @@ const main = async () => {
 
   const mcV3DeployedContracts = await import(`@pancakeswap/masterchef-v3/deployed/${networkName}.json`)
 
-  const VEMan = await ethers.getContractFactory('VEMan')
-  let veman = await VEMan.deploy(
+  const VEGain = await ethers.getContractFactory('VEGain')
+  let vegain = await VEGain.deploy(
     ethers.constants.AddressZero, // no need for CakePool migration
     mcV3DeployedContracts.GainToken,
     ethers.constants.AddressZero, // no need for CakePool migration,
     config.txConfig
   )
-  veman = await veman.deployed()
-  console.log('GaugeVoting deployed to:', veman.address)
+  vegain = await vegain.deployed()
+  console.log('GaugeVoting deployed to:', vegain.address)
 
   const GaugeVoting = await ethers.getContractFactory('GaugeVoting')
-  const gaugeVoting = await GaugeVoting.deploy(veman.address)
+  const gaugeVoting = await GaugeVoting.deploy(vegain.address)
   await gaugeVoting.deployed()
   console.log('GaugeVoting deployed to:', gaugeVoting.address)
 
@@ -38,7 +38,7 @@ const main = async () => {
   console.log('GaugeVotingCalc deployed to:', gaugeVotingCalc.address)
 
   const RevenueSharingPoolFactory = await ethers.getContractFactory('RevenueSharingPoolFactory')
-  const revenueSharingPoolFactory = await RevenueSharingPoolFactory.deploy(veman.address)
+  const revenueSharingPoolFactory = await RevenueSharingPoolFactory.deploy(vegain.address)
   await revenueSharingPoolFactory.deployed()
   console.log('RevenueSharingPoolFactory deployed to:', revenueSharingPoolFactory.address)
 
@@ -57,12 +57,12 @@ const main = async () => {
   tx = await gaugeVoting.addType('PM', 0)
   await tx.wait(5)
   console.log('GaugeVoting addType PM:', tx.hash)
-  tx = await gaugeVoting.addType('veMAN', 0)
+  tx = await gaugeVoting.addType('vegain', 0)
   await tx.wait(5)
-  console.log('GaugeVoting addType veMAN:', tx.hash)
+  console.log('GaugeVoting addType vegain:', tx.hash)
 
   const contracts = {
-    VEMan: veman.address,
+    VEGain: vegain.address,
     GaugeVoting: gaugeVoting.address,
     GaugeVotingAdminUtil: gaugeVotingAdminUtil.address,
     GaugeVotingCalc: gaugeVotingCalc.address,
