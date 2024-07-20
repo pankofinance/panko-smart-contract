@@ -1,4 +1,4 @@
-import { bytecode } from '@pancakeswap/v3-core/artifacts/contracts/GainV3Pool.sol/GainV3Pool.json'
+import { bytecode } from '@pancakeswap/v3-core/artifacts/contracts/SwapLabsV3Pool.sol/SwapLabsV3Pool.json'
 import { utils } from 'ethers'
 
 export const POOL_BYTECODE_HASH = utils.keccak256(bytecode)

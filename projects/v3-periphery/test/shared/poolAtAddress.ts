@@ -1,4 +1,4 @@
-import { abi as POOL_ABI } from '@pancakeswap/v3-core/artifacts/contracts/GainV3Pool.sol/GainV3Pool.json'
+import { abi as POOL_ABI } from '@pancakeswap/v3-core/artifacts/contracts/SwapLabsV3Pool.sol/SwapLabsV3Pool.json'
 import { Contract, Wallet } from 'ethers'
 import { IPancakeV3Pool } from '../../typechain-types'
 

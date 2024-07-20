@@ -1,34 +1,44 @@
-import { verifyContract } from '@pancakeswap/common/verify'
-import { configs } from '@pancakeswap/common/config'
-import { ethers, network } from 'hardhat'
+import { verifyContract } from "@pancakeswap/common/verify";
+import { configs } from "@pancakeswap/common/config";
+import { ethers, network } from "hardhat";
 
 async function main() {
-  const networkName = network.name
-  const config = configs[networkName as keyof typeof configs]
+  const networkName = network.name;
+  const config = configs[networkName as keyof typeof configs];
 
   if (!config) {
-    throw new Error(`No config found for network ${networkName}`)
+    throw new Error(`No config found for network ${networkName}`);
   }
-  const deployedContractsVoter = await import(`@pancakeswap/voter/deployed/${networkName}.json`)
-  const mcV3DeployedContracts = await import(`@pancakeswap/masterchef-v3/deployed/${networkName}.json`)
+  const deployedContractsVoter = await import(
+    `@pancakeswap/voter/deployed/${networkName}.json`
+  );
+  const mcV3DeployedContracts = await import(
+    `@pancakeswap/masterchef-v3/deployed/${networkName}.json`
+  );
 
-  console.log('Verify voter')
-  await verifyContract(deployedContractsVoter.VEGain, [
+  console.log("Verify voter");
+  await verifyContract(deployedContractsVoter.VESwapLabs, [
     ethers.constants.AddressZero,
-    mcV3DeployedContracts.GainToken,
+    mcV3DeployedContracts.SwapLabsToken,
     ethers.constants.AddressZero,
-  ])
-  await verifyContract(deployedContractsVoter.GaugeVoting, [deployedContractsVoter.VEGain])
-  await verifyContract(deployedContractsVoter.GaugeVotingAdminUtil, [])
-  await verifyContract(deployedContractsVoter.GaugeVotingCalc, [deployedContractsVoter.GaugeVoting])
-  await verifyContract(deployedContractsVoter.RevenueSharingPoolFactory, [deployedContractsVoter.VEGain])
-  await verifyContract(deployedContractsVoter.RevenueSharingPoolGateway, [])
+  ]);
+  await verifyContract(deployedContractsVoter.GaugeVoting, [
+    deployedContractsVoter.VESwapLabs,
+  ]);
+  await verifyContract(deployedContractsVoter.GaugeVotingAdminUtil, []);
+  await verifyContract(deployedContractsVoter.GaugeVotingCalc, [
+    deployedContractsVoter.GaugeVoting,
+  ]);
+  await verifyContract(deployedContractsVoter.RevenueSharingPoolFactory, [
+    deployedContractsVoter.VESwapLabs,
+  ]);
+  await verifyContract(deployedContractsVoter.RevenueSharingPoolGateway, []);
   // await verifyContract('0x34176E7db604EfaEdFCC3B29616D596d910dbcf6', [])
 }
 
 main()
   .then(() => process.exit(0))
   .catch((error) => {
-    console.error(error)
-    process.exit(1)
-  })
+    console.error(error);
+    process.exit(1);
+  });

@@ -177,8 +177,8 @@ export default {
   solidity: {
     compilers: [DEFAULT_COMPILER_SETTINGS],
     overrides: {
-      'contracts/GainV3Pool.sol': LOWEST_OPTIMIZER_COMPILER_SETTINGS,
-      'contracts/GainV3PoolDeployer.sol': LOWEST_OPTIMIZER_COMPILER_SETTINGS,
+      'contracts/SwapLabsV3Pool.sol': LOWEST_OPTIMIZER_COMPILER_SETTINGS,
+      'contracts/SwapLabsV3PoolDeployer.sol': LOWEST_OPTIMIZER_COMPILER_SETTINGS,
       'contracts/test/OutputCodeHash.sol': LOWEST_OPTIMIZER_COMPILER_SETTINGS,
     },
   },

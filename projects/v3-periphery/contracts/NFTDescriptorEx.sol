@@ -130,7 +130,7 @@ contract NFTDescriptorEx {
         return
             string(
                 abi.encodePacked(
-                    'This NFT represents a liquidity position in a GainToken V3 ',
+                    'This NFT represents a liquidity position in a SwapLabsToken V3 ',
                     quoteTokenSymbol,
                     '-',
                     baseTokenSymbol,
@@ -177,7 +177,7 @@ contract NFTDescriptorEx {
         return
             string(
                 abi.encodePacked(
-                    'GainToken - ',
+                    'SwapLabsToken - ',
                     feeTier,
                     ' - ',
                     escapeQuotes(params.quoteTokenSymbol),

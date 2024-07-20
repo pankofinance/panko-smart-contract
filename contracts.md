@@ -60,13 +60,13 @@ Designed to swap specific assets that are priced closely – such as USD stablec
 
 #### Stableswap helper contracts (view only):
 
-- **GainStableSwapInfo**
+- **SwapLabsStableSwapInfo**
 	- **Description**: will direct to StableSwapTwoPoolInfo and StableSwapThreePoolInfo
 
 
 ### 2. Farming
 
-- **GainToken**
+- **SwapLabsToken**
 	- **Description**:
 	- **Details**:
 		- 
@@ -75,7 +75,7 @@ Designed to swap specific assets that are priced closely – such as USD stablec
 	- **Details**:
 		- 
 - **MasterChef** and **MasterChefV2** and **MasterChefV3**
-	- **Description**: Staking contract for distributing and managing Gain emissions
+	- **Description**: Staking contract for distributing and managing SwapLabs emissions
 	- **Details**:
 		- `setReceiver` set the address to upkeep the pools
 		- `upkeep(uint256 _amount, uint256 _duration, bool _withUpdate) onlyReceiver`: Inject rewards with a distribution period. Can also update across all pools to ensure the rewards are distributed.
@@ -87,7 +87,7 @@ Designed to swap specific assets that are priced closely – such as USD stablec
 
 ### 3. Voting
 - **VEMan**
-	- **Description**: vote-escrowed Gain. Not transferrable. Can only be obtained by staking Gain
+	- **Description**: vote-escrowed SwapLabs. Not transferrable. Can only be obtained by staking SwapLabs
 - **GaugeVoting**
 	- **Description**:
 		- 

@@ -447,7 +447,7 @@ const TEST_POOLS: PoolTestCase[] = [
   },
 ]
 
-describe('GainV3Pool swap tests', () => {
+describe('SwapLabsV3Pool swap tests', () => {
   let wallet: Wallet, other: Wallet
 
   let loadFixture: ReturnType<typeof createFixtureLoader>
@@ -494,7 +494,7 @@ describe('GainV3Pool swap tests', () => {
       let poolFunctions: PoolFunctions
 
       beforeEach('load fixture', async () => {
-        ; ({ token0, token1, pool, poolFunctions, poolBalance0, poolBalance1, swapTarget } = await loadFixture(
+        ;({ token0, token1, pool, poolFunctions, poolBalance0, poolBalance1, swapTarget } = await loadFixture(
           poolCaseFixture
         ))
       })

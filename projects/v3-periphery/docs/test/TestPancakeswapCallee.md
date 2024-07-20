@@ -35,7 +35,7 @@ function pancakeV3SwapCallback(int256 amount0Delta, int256 amount1Delta, bytes d
 Called to `msg.sender` after executing a swap via IPancakeV3Pool#swap.
 
 _In the implementation you must pay the pool tokens owed for the swap.
-The caller of this method must be checked to be a GainV3Pool deployed by the canonical PancakeV3Factory.
+The caller of this method must be checked to be a SwapLabsV3Pool deployed by the canonical PancakeV3Factory.
 amount0Delta and amount1Delta can both be 0 if no tokens were swapped._
 
 #### Parameters

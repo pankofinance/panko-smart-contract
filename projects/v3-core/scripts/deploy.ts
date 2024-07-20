@@ -11,12 +11,12 @@ async function main() {
     throw new Error(`No config found for network ${networkName}`)
   }
 
-  const V3PoolDeployer = await ethers.getContractFactory('GainV3PoolDeployer')
+  const V3PoolDeployer = await ethers.getContractFactory('SwapLabsV3PoolDeployer')
   let v3PoolDeployer = await V3PoolDeployer.deploy(config.txConfig)
   v3PoolDeployer = await v3PoolDeployer.deployed()
   console.log('v3PoolDeployer', v3PoolDeployer.address)
 
-  const V3Factory = await ethers.getContractFactory('GainV3Factory')
+  const V3Factory = await ethers.getContractFactory('SwapLabsV3Factory')
   let v3Factory = await V3Factory.deploy(v3PoolDeployer.address, config.txConfig)
   v3Factory = await v3Factory.deployed()
   console.log('v3Factory', v3Factory.address)

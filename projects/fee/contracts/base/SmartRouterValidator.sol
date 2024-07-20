@@ -172,8 +172,8 @@ abstract contract SmartRouterValidator is ISmartRouterValidator {
         if (params.recipient == SmartRouterConstants.MSG_SENDER && !validDestinationTokens[params.tokenOut]) {
             revert InvalidDestination(params.tokenOut);
         }
-        if (params.amountOutMinimum == 0) {
-            revert InvalidOutputAmount(params.amountOutMinimum);
+        if (params.amountOut == 0) {
+            revert InvalidOutputAmount(params.amountOut);
         }
         return abi.encodeCall(IV3SwapRouter.exactOutputSingle, (params));
     }

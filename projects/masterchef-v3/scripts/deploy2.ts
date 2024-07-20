@@ -27,10 +27,10 @@ async function main() {
   const v3PeripheryDeployedContracts = await import(`@pancakeswap/v3-periphery/deployed/${networkName}.json`);
   // const masterchefV3DeployedContracts = await import(`@pancakeswap/masterchef-v3/deployed/${networkName}.json`);
 
-  const Gain = await ethers.getContractFactory("GainToken");
-  const mancake = await Gain.deploy();
+  const SwapLabs = await ethers.getContractFactory("SwapLabsToken");
+  const mancake = await SwapLabs.deploy();
   await mancake.deployed();
-  console.log("Gain deployed to:", mancake.address);
+  console.log("SwapLabs deployed to:", mancake.address);
 
   const SyrupBar = await ethers.getContractFactory("SyrupBar");
   const syrup = await SyrupBar.deploy(mancake.address);
@@ -64,7 +64,7 @@ async function main() {
     JSON.stringify(
       {
         // ...masterchefV3DeployedContracts,
-        GainToken: mancake.address,
+        SwapLabsToken: mancake.address,
         SyrupBar: syrup.address,
         MasterChef: masterchef.address,
         MasterChefV2: masterchefv2.address,

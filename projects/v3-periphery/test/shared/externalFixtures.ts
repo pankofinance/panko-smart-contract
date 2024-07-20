@@ -1,11 +1,11 @@
 import {
   abi as FACTORY_ABI,
   bytecode as FACTORY_BYTECODE,
-} from '@pancakeswap/v3-core/artifacts/contracts/GainV3Factory.sol/GainV3Factory.json'
+} from '@pancakeswap/v3-core/artifacts/contracts/SwapLabsV3Factory.sol/SwapLabsV3Factory.json'
 import {
   abi as DEPLOYER_ABI,
   bytecode as DEPLOYER_BYTECODE,
-} from '@pancakeswap/v3-core/artifacts/contracts/GainV3PoolDeployer.sol/GainV3PoolDeployer.json'
+} from '@pancakeswap/v3-core/artifacts/contracts/SwapLabsV3PoolDeployer.sol/SwapLabsV3PoolDeployer.json'
 import { abi as FACTORY_V2_ABI, bytecode as FACTORY_V2_BYTECODE } from '@uniswap/v2-core/build/UniswapV2Factory.json'
 import { Fixture } from 'ethereum-waffle'
 import { ethers, waffle } from 'hardhat'

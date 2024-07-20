@@ -1,7 +1,7 @@
 import { Wallet } from 'ethers'
 import { ethers, waffle } from 'hardhat'
 import { PancakeV3Factory } from '../typechain-types/contracts/PancakeV3Factory'
-import { GainV3PoolDeployer } from '../typechain-types/contracts/GainV3PoolDeployer'
+import { SwapLabsV3PoolDeployer } from '../typechain-types/contracts/SwapLabsV3PoolDeployer'
 import { expect } from './shared/expect'
 import snapshotGasCost from './shared/snapshotGasCost'
 
@@ -19,17 +19,17 @@ const createFixtureLoader = waffle.createFixtureLoader
 describe('PancakeV3Factory', () => {
   let wallet: Wallet, other: Wallet
 
-  let deployer: GainV3PoolDeployer
+  let deployer: SwapLabsV3PoolDeployer
   let factory: PancakeV3Factory
   let poolBytecode: string
   const fixture = async () => {
-    const deployerFactory = await ethers.getContractFactory('GainV3PoolDeployer')
+    const deployerFactory = await ethers.getContractFactory('SwapLabsV3PoolDeployer')
     const factoryFactory = await ethers.getContractFactory('PancakeV3Factory')
-    const deployer_ = (await deployerFactory.deploy()) as GainV3PoolDeployer
+    const deployer_ = (await deployerFactory.deploy()) as SwapLabsV3PoolDeployer
     const factory_ = (await factoryFactory.deploy(deployer_.address)) as PancakeV3Factory
 
     await deployer_.setFactoryAddress(factory_.address)
-    return [factory_, deployer_] as [PancakeV3Factory, GainV3PoolDeployer]
+    return [factory_, deployer_] as [PancakeV3Factory, SwapLabsV3PoolDeployer]
   }
 
   let loadFixture: ReturnType<typeof createFixtureLoader>
@@ -40,7 +40,7 @@ describe('PancakeV3Factory', () => {
   })
 
   before('load pool bytecode', async () => {
-    poolBytecode = (await ethers.getContractFactory('GainV3Pool')).bytecode
+    poolBytecode = (await ethers.getContractFactory('SwapLabsV3Pool')).bytecode
   })
 
   beforeEach('deploy factory', async () => {
@@ -84,7 +84,7 @@ describe('PancakeV3Factory', () => {
     expect(await factory.getPool(tokens[0], tokens[1], feeAmount), 'getPool in order').to.eq(create2Address)
     expect(await factory.getPool(tokens[1], tokens[0], feeAmount), 'getPool in reverse').to.eq(create2Address)
 
-    const poolContractFactory = await ethers.getContractFactory('GainV3Pool')
+    const poolContractFactory = await ethers.getContractFactory('SwapLabsV3Pool')
     const pool = poolContractFactory.attach(create2Address)
     expect(await pool.factory(), 'pool factory address').to.eq(factory.address)
     expect(await pool.token0(), 'pool token0').to.eq(TEST_ADDRESSES[0])

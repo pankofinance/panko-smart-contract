@@ -3,7 +3,7 @@ pragma solidity 0.8.10;
 
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "./bep/BEP20.sol";
-import "./GainToken.sol";
+import "./SwapLabsToken.sol";
 
 // SyrupBar with Governance.
 contract SyrupBar is BEP20("SyrupBar Token", "SYRUP") {
@@ -21,9 +21,9 @@ contract SyrupBar is BEP20("SyrupBar Token", "SYRUP") {
     }
 
     // The CAKE TOKEN!
-    GainToken public cake;
+    SwapLabsToken public cake;
 
-    constructor(GainToken _cake) public {
+    constructor(SwapLabsToken _cake) public {
         cake = _cake;
     }
 

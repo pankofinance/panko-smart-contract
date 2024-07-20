@@ -91,20 +91,7 @@ export default {
   },
   networks: {
     hardhat: {
-      chainId: 5000,
-      hardfork: 'london',
-      forking: {
-        enabled: true,
-        url: process.env.MANTLE_FORK_URL || 'https://mantle-rpc.publicnode.com',
-        ignoreUnknownTxType: true,
-      },
-      chains: {
-        5000: {
-          hardforkHistory: {
-            london: 59724380,
-          },
-        },
-      },
+      allowUnlimitedContractSize: true,
     },
     ...(process.env.KEY_TESTNET && { bscTestnet }),
     ...(process.env.KEY_MAINNET && { bscMainnet }),

@@ -36,7 +36,7 @@ const createFixtureLoader = waffle.createFixtureLoader
 
 type ThenArg<T> = T extends PromiseLike<infer U> ? U : T
 
-describe('GainV3Pool', () => {
+describe('SwapLabsV3Pool', () => {
   let wallet: Wallet, other: Wallet
 
   let token0: TestERC20
@@ -73,26 +73,26 @@ describe('GainV3Pool', () => {
   })
 
   beforeEach('deploy fixture', async () => {
-    ; ({ token0, token1, token2, factory, createPool, swapTargetCallee: swapTarget } = await loadFixture(poolFixture))
+    ;({ token0, token1, token2, factory, createPool, swapTargetCallee: swapTarget } = await loadFixture(poolFixture))
 
     const oldCreatePool = createPool
     createPool = async (_feeAmount, _tickSpacing) => {
       const pool = await oldCreatePool(_feeAmount, _tickSpacing)
-        ; ({
-          swapToLowerPrice,
-          swapToHigherPrice,
-          swapExact0For1,
-          swap0ForExact1,
-          swapExact1For0,
-          swap1ForExact0,
-          mint,
-          flash,
-        } = createPoolFunctions({
-          token0,
-          token1,
-          swapTarget,
-          pool,
-        }))
+      ;({
+        swapToLowerPrice,
+        swapToHigherPrice,
+        swapExact0For1,
+        swap0ForExact1,
+        swapExact1For0,
+        swap1ForExact0,
+        mint,
+        flash,
+      } = createPoolFunctions({
+        token0,
+        token1,
+        swapTarget,
+        pool,
+      }))
       minTick = getMinTick(_tickSpacing)
       maxTick = getMaxTick(_tickSpacing)
       feeAmount = _feeAmount
@@ -333,7 +333,7 @@ describe('GainV3Pool', () => {
             expect(liquidityGross).to.eq(0)
             expect(feeGrowthOutside0X128).to.eq(0)
             expect(feeGrowthOutside1X128).to.eq(0)
-              ; ({ liquidityGross, feeGrowthOutside0X128, feeGrowthOutside1X128 } = await pool.ticks(-tickSpacing))
+            ;({ liquidityGross, feeGrowthOutside0X128, feeGrowthOutside1X128 } = await pool.ticks(-tickSpacing))
             expect(liquidityGross).to.eq(250)
             expect(feeGrowthOutside0X128).to.eq(0)
             expect(feeGrowthOutside1X128).to.eq(0)
@@ -502,7 +502,7 @@ describe('GainV3Pool', () => {
         expect(token1ProtocolFees).to.eq(0)
 
         await pool.setFeeProtocol(2000, 2000)
-          ; ({ token0: token0ProtocolFees, token1: token1ProtocolFees } = await pool.protocolFees())
+        ;({ token0: token0ProtocolFees, token1: token1ProtocolFees } = await pool.protocolFees())
         expect(token0ProtocolFees).to.eq(0)
         expect(token1ProtocolFees).to.eq(0)
       })
@@ -526,8 +526,8 @@ describe('GainV3Pool', () => {
         expect(tokensOwed1, 'tokens owed 1 before').to.eq(0)
 
         await pool.burn(minTick + tickSpacing, maxTick - tickSpacing, 1)
-          ; ({ liquidity, feeGrowthInside0LastX128, feeGrowthInside1LastX128, tokensOwed1, tokensOwed0 } =
-            await pool.positions(getPositionKey(wallet.address, minTick + tickSpacing, maxTick - tickSpacing)))
+        ;({ liquidity, feeGrowthInside0LastX128, feeGrowthInside1LastX128, tokensOwed1, tokensOwed0 } =
+          await pool.positions(getPositionKey(wallet.address, minTick + tickSpacing, maxTick - tickSpacing)))
         expect(liquidity).to.eq(0)
         expect(feeGrowthInside0LastX128).to.eq('85070591730234346957703192587171319')
         expect(feeGrowthInside1LastX128).to.eq('8507059173023434695770319258717131')
@@ -627,9 +627,9 @@ describe('GainV3Pool', () => {
       } = await pool.observe([0])
       expect(tickCumulative).to.eq(0)
       await pool.advanceTime(10)
-        ; ({
-          tickCumulatives: [tickCumulative],
-        } = await pool.observe([0]))
+      ;({
+        tickCumulatives: [tickCumulative],
+      } = await pool.observe([0]))
       expect(tickCumulative).to.eq(0)
     })
 
@@ -1111,25 +1111,25 @@ describe('GainV3Pool', () => {
       await pool.setFeeProtocol(0, 0)
       let token0Fees
       let token1Fees
-        ; ({ token0Fees, token1Fees } = await swapAndGetFeesOwed({
-          amount: expandTo18Decimals(1),
-          zeroForOne: true,
-          poke: true,
-        }))
+      ;({ token0Fees, token1Fees } = await swapAndGetFeesOwed({
+        amount: expandTo18Decimals(1),
+        zeroForOne: true,
+        poke: true,
+      }))
       expect(token0Fees).to.eq('499999999999999')
       expect(token1Fees).to.eq(0)
-        ; ({ token0Fees, token1Fees } = await swapAndGetFeesOwed({
-          amount: expandTo18Decimals(1),
-          zeroForOne: true,
-          poke: true,
-        }))
+      ;({ token0Fees, token1Fees } = await swapAndGetFeesOwed({
+        amount: expandTo18Decimals(1),
+        zeroForOne: true,
+        poke: true,
+      }))
       expect(token0Fees).to.eq('999999999999998')
       expect(token1Fees).to.eq(0)
-        ; ({ token0Fees, token1Fees } = await swapAndGetFeesOwed({
-          amount: expandTo18Decimals(1),
-          zeroForOne: true,
-          poke: true,
-        }))
+      ;({ token0Fees, token1Fees } = await swapAndGetFeesOwed({
+        amount: expandTo18Decimals(1),
+        zeroForOne: true,
+        poke: true,
+      }))
       expect(token0Fees).to.eq('1499999999999997')
       expect(token1Fees).to.eq(0)
     })
@@ -1138,25 +1138,25 @@ describe('GainV3Pool', () => {
       await pool.setFeeProtocol(0, 0)
       let token0Fees
       let token1Fees
-        ; ({ token0Fees, token1Fees } = await swapAndGetFeesOwed({
-          amount: expandTo18Decimals(1),
-          zeroForOne: false,
-          poke: true,
-        }))
+      ;({ token0Fees, token1Fees } = await swapAndGetFeesOwed({
+        amount: expandTo18Decimals(1),
+        zeroForOne: false,
+        poke: true,
+      }))
       expect(token0Fees).to.eq(0)
       expect(token1Fees).to.eq('499999999999999')
-        ; ({ token0Fees, token1Fees } = await swapAndGetFeesOwed({
-          amount: expandTo18Decimals(1),
-          zeroForOne: false,
-          poke: true,
-        }))
+      ;({ token0Fees, token1Fees } = await swapAndGetFeesOwed({
+        amount: expandTo18Decimals(1),
+        zeroForOne: false,
+        poke: true,
+      }))
       expect(token0Fees).to.eq(0)
       expect(token1Fees).to.eq('999999999999998')
-        ; ({ token0Fees, token1Fees } = await swapAndGetFeesOwed({
-          amount: expandTo18Decimals(1),
-          zeroForOne: false,
-          poke: true,
-        }))
+      ;({ token0Fees, token1Fees } = await swapAndGetFeesOwed({
+        amount: expandTo18Decimals(1),
+        zeroForOne: false,
+        poke: true,
+      }))
       expect(token0Fees).to.eq(0)
       expect(token1Fees).to.eq('1499999999999997')
     })
@@ -1288,7 +1288,7 @@ describe('GainV3Pool', () => {
       await expect(pool.collect(wallet.address, minTick, maxTick, MaxUint128, MaxUint128))
         .to.emit(token0, 'Transfer')
         .withArgs(pool.address, wallet.address, '399999999999999')
-        ; ({ token0: token0ProtocolFees, token1: token1ProtocolFees } = await pool.protocolFees())
+      ;({ token0: token0ProtocolFees, token1: token1ProtocolFees } = await pool.protocolFees())
       expect(token0ProtocolFees).to.eq('200000000000000')
       expect(token1ProtocolFees).to.eq(0)
     })
@@ -1403,7 +1403,7 @@ describe('GainV3Pool', () => {
       beforeEach('add some tokens', async () => {
         await initializeAtZeroTick(pool)
         await pool.setFeeProtocol(0, 0)
-          ;[balance0, balance1] = await Promise.all([token0.balanceOf(pool.address), token1.balanceOf(pool.address)])
+        ;[balance0, balance1] = await Promise.all([token0.balanceOf(pool.address), token1.balanceOf(pool.address)])
       })
 
       describe('fee off', () => {
@@ -1903,9 +1903,9 @@ describe('GainV3Pool', () => {
       await pool.connect(other).burn(minTick, maxTick, 0)
       let { amount0 } = await pool.callStatic.collect(wallet.address, minTick, maxTick, MaxUint128, MaxUint128)
       expect(amount0, 'amount0 of wallet').to.eq(0)
-        ; ({ amount0 } = await pool
-          .connect(other)
-          .callStatic.collect(other.address, minTick, maxTick, MaxUint128, MaxUint128))
+      ;({ amount0 } = await pool
+        .connect(other)
+        .callStatic.collect(other.address, minTick, maxTick, MaxUint128, MaxUint128))
       expect(amount0, 'amount0 of other').to.eq(0)
     })
 
@@ -1922,9 +1922,9 @@ describe('GainV3Pool', () => {
       await pool.connect(other).burn(minTick, maxTick, 0)
       let { amount0 } = await pool.callStatic.collect(wallet.address, minTick, maxTick, MaxUint128, MaxUint128)
       expect(amount0, 'amount0 of wallet').to.eq(1)
-        ; ({ amount0 } = await pool
-          .connect(other)
-          .callStatic.collect(other.address, minTick, maxTick, MaxUint128, MaxUint128))
+      ;({ amount0 } = await pool
+        .connect(other)
+        .callStatic.collect(other.address, minTick, maxTick, MaxUint128, MaxUint128))
       expect(amount0, 'amount0 of other').to.eq(0)
     })
   })

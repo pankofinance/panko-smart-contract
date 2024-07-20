@@ -1,6 +1,6 @@
 # Solidity API
 
-## GainV3Pool
+## SwapLabsV3Pool
 
 ### factory
 
@@ -116,7 +116,7 @@ struct Slot0 {
 ### slot0
 
 ```solidity
-struct GainV3Pool.Slot0 slot0
+struct SwapLabsV3Pool.Slot0 slot0
 ```
 
 The 0th storage slot in the pool stores many values, and is exposed as a single method to save gas
@@ -159,7 +159,7 @@ struct ProtocolFees {
 ### protocolFees
 
 ```solidity
-struct GainV3Pool.ProtocolFees protocolFees
+struct SwapLabsV3Pool.ProtocolFees protocolFees
 ```
 
 The amounts of token0 and token1 that are owed to the protocol

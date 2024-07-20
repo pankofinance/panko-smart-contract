@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.11;
 
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import '@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol';
 import '@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol';
 import '@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol';
@@ -17,7 +18,7 @@ import './interfaces/ISmartRouter.sol';
 import './interfaces/IStableSwapPool.sol';
 import './interfaces/IOwnable.sol';
 
-contract FeeHandler is IFeeHandler, UUPSUpgradeable, OwnableUpgradeable, SmartRouterValidator {
+contract FeeHandler is Initializable, IFeeHandler, UUPSUpgradeable, OwnableUpgradeable, SmartRouterValidator {
     using SafeERC20 for IERC20;
 
     address constant ETHER_ADDRESS = 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE;

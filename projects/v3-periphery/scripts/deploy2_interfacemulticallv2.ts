@@ -16,10 +16,10 @@ async function main() {
     throw new Error(`No config found for network ${networkName}`)
   }
 
-  const GainInterfaceMulticallV2 = await ethers.getContractFactory('GainInterfaceMulticallV2')
-  const mancakeInterfaceMulticallV2 = await GainInterfaceMulticallV2.deploy()
+  const SwapLabsInterfaceMulticallV2 = await ethers.getContractFactory('SwapLabsInterfaceMulticallV2')
+  const mancakeInterfaceMulticallV2 = await SwapLabsInterfaceMulticallV2.deploy()
   await mancakeInterfaceMulticallV2.deployed()
-  console.log('GainInterfaceMulticallV2', mancakeInterfaceMulticallV2.address)
+  console.log('SwapLabsInterfaceMulticallV2', mancakeInterfaceMulticallV2.address)
 
   const contracts = {
     MulticallV2: mancakeInterfaceMulticallV2.address,

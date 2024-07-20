@@ -3,8 +3,8 @@ import { ethers, upgrades } from "hardhat";
 import { time, mineUpTo, reset } from "@nomicfoundation/hardhat-network-helpers";
 import { TickMath } from "@uniswap/v3-sdk";
 
-import PancakeV3PoolDeployerArtifact from "@pancakeswap/v3-core/artifacts/contracts/GainV3PoolDeployer.sol/GainV3PoolDeployer.json";
-import PancakeV3FactoryArtifact from "@pancakeswap/v3-core/artifacts/contracts/GainV3Factory.sol/GainV3Factory.json";
+import PancakeV3PoolDeployerArtifact from "@pancakeswap/v3-core/artifacts/contracts/SwapLabsV3PoolDeployer.sol/SwapLabsV3PoolDeployer.json";
+import PancakeV3FactoryArtifact from "@pancakeswap/v3-core/artifacts/contracts/SwapLabsV3Factory.sol/SwapLabsV3Factory.json";
 // import PancakeV3FactoryOwnerArtifact from "@pancakeswap/v3-core/artifacts/contracts/PancakeV3FactoryOwner.sol/PancakeV3FactoryOwner.json";
 import PancakeV3SwapRouterArtifact from "@pancakeswap/v3-periphery/artifacts/contracts/SwapRouter.sol/SwapRouter.json";
 import NftDescriptorOffchainArtifact from "@pancakeswap/v3-periphery/artifacts/contracts/NonfungibleTokenPositionDescriptorOffChain.sol/NonfungibleTokenPositionDescriptorOffChain.json";
@@ -13,7 +13,7 @@ import PancakeV3LmPoolDeployerArtifact from "@pancakeswap/v3-lm-pool/artifacts/c
 import TestLiquidityAmountsArtifact from "@pancakeswap/v3-periphery/artifacts/contracts/test/LiquidityAmountsTest.sol/LiquidityAmountsTest.json";
 
 import ERC20MockArtifact from "./ERC20Mock.json";
-import CakeTokenArtifact from "./GainToken.json";
+import CakeTokenArtifact from "./SwapLabsToken.json";
 import SyrupBarArtifact from "./SyrupBar.json";
 import MasterChefArtifact from "./MasterChef.json";
 import MasterChefV2Artifact from "./MasterChefV2.json";
@@ -35,8 +35,8 @@ describe("MasterChefV3", function () {
     reset();
 
     // Deploy factory
-    const GainV3PoolDeployer = await ethers.getContractFactoryFromArtifact(PancakeV3PoolDeployerArtifact);
-    const pancakeV3PoolDeployer = await GainV3PoolDeployer.deploy();
+    const SwapLabsV3PoolDeployer = await ethers.getContractFactoryFromArtifact(PancakeV3PoolDeployerArtifact);
+    const pancakeV3PoolDeployer = await SwapLabsV3PoolDeployer.deploy();
 
     const PancakeV3Factory = await ethers.getContractFactoryFromArtifact(PancakeV3FactoryArtifact);
     const pancakeV3Factory = await PancakeV3Factory.deploy(pancakeV3PoolDeployer.address);
@@ -80,8 +80,8 @@ describe("MasterChefV3", function () {
     // await pancakeV3Factory.setOwner(pancakeV3FactoryOwner.address);
 
     // Prepare for master chef v3
-    const GainToken = await ethers.getContractFactoryFromArtifact(CakeTokenArtifact);
-    const cakeToken = await GainToken.deploy();
+    const SwapLabsToken = await ethers.getContractFactoryFromArtifact(CakeTokenArtifact);
+    const cakeToken = await SwapLabsToken.deploy();
 
     const SyrupBar = await ethers.getContractFactoryFromArtifact(SyrupBarArtifact);
     const syrupBar = await SyrupBar.deploy(cakeToken.address);
@@ -274,7 +274,7 @@ describe("MasterChefV3", function () {
         });
         await this.nonfungiblePositionManager
           .connect(user1)
-        ["safeTransferFrom(address,address,uint256)"](user1.address, this.masterChefV3.address, 1);
+          ["safeTransferFrom(address,address,uint256)"](user1.address, this.masterChefV3.address, 1);
 
         await time.increase(1);
 
@@ -296,7 +296,7 @@ describe("MasterChefV3", function () {
         });
         await this.nonfungiblePositionManager
           .connect(user1)
-        ["safeTransferFrom(address,address,uint256)"](user1.address, this.masterChefV3.address, 2);
+          ["safeTransferFrom(address,address,uint256)"](user1.address, this.masterChefV3.address, 2);
 
         await time.increase(1);
 
@@ -327,7 +327,7 @@ describe("MasterChefV3", function () {
         });
         await this.nonfungiblePositionManager
           .connect(user2)
-        ["safeTransferFrom(address,address,uint256)"](user2.address, this.masterChefV3.address, 3);
+          ["safeTransferFrom(address,address,uint256)"](user2.address, this.masterChefV3.address, 3);
 
         await time.increase(1);
 
@@ -372,7 +372,7 @@ describe("MasterChefV3", function () {
         });
         await this.nonfungiblePositionManager
           .connect(user2)
-        ["safeTransferFrom(address,address,uint256)"](user2.address, this.masterChefV3.address, 4);
+          ["safeTransferFrom(address,address,uint256)"](user2.address, this.masterChefV3.address, 4);
 
         await time.increase(1);
 
@@ -588,7 +588,7 @@ describe("MasterChefV3", function () {
         });
         await this.nonfungiblePositionManager
           .connect(user1)
-        ["safeTransferFrom(address,address,uint256)"](user1.address, this.masterChefV3.address, 5);
+          ["safeTransferFrom(address,address,uint256)"](user1.address, this.masterChefV3.address, 5);
 
         await time.increase(1);
 
@@ -723,7 +723,7 @@ describe("MasterChefV3", function () {
         });
         await this.nonfungiblePositionManager
           .connect(user2)
-        ["safeTransferFrom(address,address,uint256)"](user2.address, this.masterChefV3.address, 6);
+          ["safeTransferFrom(address,address,uint256)"](user2.address, this.masterChefV3.address, 6);
 
         await time.increase(1);
 
@@ -759,7 +759,7 @@ describe("MasterChefV3", function () {
         });
         await this.nonfungiblePositionManager
           .connect(user1)
-        ["safeTransferFrom(address,address,uint256)"](user1.address, this.masterChefV3.address, 7);
+          ["safeTransferFrom(address,address,uint256)"](user1.address, this.masterChefV3.address, 7);
 
         await time.increase(1);
 
@@ -796,7 +796,7 @@ describe("MasterChefV3", function () {
         });
         await this.nonfungiblePositionManager
           .connect(user1)
-        ["safeTransferFrom(address,address,uint256)"](user1.address, this.masterChefV3.address, 8);
+          ["safeTransferFrom(address,address,uint256)"](user1.address, this.masterChefV3.address, 8);
 
         await time.increase(1);
 
@@ -855,7 +855,7 @@ describe("MasterChefV3", function () {
         });
         await this.nonfungiblePositionManager
           .connect(user2)
-        ["safeTransferFrom(address,address,uint256)"](user2.address, this.masterChefV3.address, 9);
+          ["safeTransferFrom(address,address,uint256)"](user2.address, this.masterChefV3.address, 9);
 
         await time.increase(1);
 
@@ -1276,7 +1276,7 @@ describe("MasterChefV3", function () {
         });
         await this.nonfungiblePositionManager
           .connect(user1)
-        ["safeTransferFrom(address,address,uint256)"](user1.address, this.masterChefV3.address, 10);
+          ["safeTransferFrom(address,address,uint256)"](user1.address, this.masterChefV3.address, 10);
 
         await time.increase(1);
 
@@ -1341,7 +1341,7 @@ describe("MasterChefV3", function () {
         });
         await this.nonfungiblePositionManager
           .connect(user2)
-        ["safeTransferFrom(address,address,uint256)"](user2.address, this.masterChefV3.address, 11);
+          ["safeTransferFrom(address,address,uint256)"](user2.address, this.masterChefV3.address, 11);
 
         await time.increase(1);
 
@@ -1570,7 +1570,7 @@ describe("MasterChefV3", function () {
         });
         await this.nonfungiblePositionManager
           .connect(user1)
-        ["safeTransferFrom(address,address,uint256)"](user1.address, this.masterChefV3.address, 1);
+          ["safeTransferFrom(address,address,uint256)"](user1.address, this.masterChefV3.address, 1);
 
         await time.increase(1);
 
@@ -1606,7 +1606,7 @@ describe("MasterChefV3", function () {
         });
         await this.nonfungiblePositionManager
           .connect(user2)
-        ["safeTransferFrom(address,address,uint256)"](user2.address, this.masterChefV3.address, 2);
+          ["safeTransferFrom(address,address,uint256)"](user2.address, this.masterChefV3.address, 2);
 
         await time.increase(1);
 
@@ -2265,7 +2265,7 @@ describe("MasterChefV3", function () {
         });
         await this.nonfungiblePositionManager
           .connect(user1)
-        ["safeTransferFrom(address,address,uint256)"](user1.address, this.masterChefV3.address, 1);
+          ["safeTransferFrom(address,address,uint256)"](user1.address, this.masterChefV3.address, 1);
 
         await time.increase(1);
 
@@ -2301,7 +2301,7 @@ describe("MasterChefV3", function () {
         });
         await this.nonfungiblePositionManager
           .connect(user2)
-        ["safeTransferFrom(address,address,uint256)"](user2.address, this.masterChefV3.address, 2);
+          ["safeTransferFrom(address,address,uint256)"](user2.address, this.masterChefV3.address, 2);
 
         await time.increase(1);
 

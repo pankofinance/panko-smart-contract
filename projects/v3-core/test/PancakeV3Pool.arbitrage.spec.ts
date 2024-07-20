@@ -48,7 +48,7 @@ function applySqrtRatioBipsHundredthsDelta(sqrtRatio: BigNumber, bipsHundredths:
   )
 }
 
-describe('GainV3Pool arbitrage tests', () => {
+describe('SwapLabsV3Pool arbitrage tests', () => {
   let wallet: Wallet, arbitrageur: Wallet
 
   let loadFixture: ReturnType<typeof createFixtureLoader>
@@ -119,7 +119,7 @@ describe('GainV3Pool arbitrage tests', () => {
           let tickMath: TickMathTest
 
           beforeEach('load the fixture', async () => {
-            ; ({ swapExact0For1, pool, mint, swapToHigherPrice, swapToLowerPrice, swapExact1For0, tester, tickMath } =
+            ;({ swapExact0For1, pool, mint, swapToHigherPrice, swapToLowerPrice, swapExact1For0, tester, tickMath } =
               await loadFixture(arbTestFixture))
           })
 
@@ -189,15 +189,15 @@ describe('GainV3Pool arbitrage tests', () => {
 
                 const firstTickAboveMarginalPrice = zeroForOne
                   ? Math.ceil(
-                    (await tickMath.getTickAtSqrtRatio(
-                      applySqrtRatioBipsHundredthsDelta(executionPrice, feeAmount)
-                    )) / tickSpacing
-                  ) * tickSpacing
+                      (await tickMath.getTickAtSqrtRatio(
+                        applySqrtRatioBipsHundredthsDelta(executionPrice, feeAmount)
+                      )) / tickSpacing
+                    ) * tickSpacing
                   : Math.floor(
-                    (await tickMath.getTickAtSqrtRatio(
-                      applySqrtRatioBipsHundredthsDelta(executionPrice, -feeAmount)
-                    )) / tickSpacing
-                  ) * tickSpacing
+                      (await tickMath.getTickAtSqrtRatio(
+                        applySqrtRatioBipsHundredthsDelta(executionPrice, -feeAmount)
+                      )) / tickSpacing
+                    ) * tickSpacing
                 const tickAfterFirstTickAboveMarginPrice = zeroForOne
                   ? firstTickAboveMarginalPrice - tickSpacing
                   : firstTickAboveMarginalPrice + tickSpacing

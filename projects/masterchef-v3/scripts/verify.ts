@@ -20,10 +20,10 @@ async function main() {
   const deployedContractsV3Periphery = await import(`@pancakeswap/v3-periphery/deployed/${networkName}.json`);
 
   console.log("Verify masterChef contracts");
-  await verifyContract(deployedContractsMasterchefV3.GainToken, []);
-  await verifyContract(deployedContractsMasterchefV3.SyrupBar, [deployedContractsMasterchefV3.GainToken]);
+  await verifyContract(deployedContractsMasterchefV3.SwapLabsToken, []);
+  await verifyContract(deployedContractsMasterchefV3.SyrupBar, [deployedContractsMasterchefV3.SwapLabsToken]);
   await verifyContract(deployedContractsMasterchefV3.MasterChef, [
-    deployedContractsMasterchefV3.GainToken,
+    deployedContractsMasterchefV3.SwapLabsToken,
     deployedContractsMasterchefV3.SyrupBar,
     burner,
     cakePerBlock,
@@ -31,12 +31,12 @@ async function main() {
   ]);
   await verifyContract(deployedContractsMasterchefV3.MasterChefV2, [
     deployedContractsMasterchefV3.MasterChef,
-    deployedContractsMasterchefV3.GainToken,
+    deployedContractsMasterchefV3.SwapLabsToken,
     1,
     burner,
   ]);
   await verifyContract(deployedContractsMasterchefV3.MasterChefV3, [
-    deployedContractsMasterchefV3.GainToken,
+    deployedContractsMasterchefV3.SwapLabsToken,
     deployedContractsV3Periphery.NonfungiblePositionManager,
     config.WNATIVE,
   ]);

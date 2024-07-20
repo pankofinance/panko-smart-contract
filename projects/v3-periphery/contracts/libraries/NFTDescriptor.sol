@@ -157,7 +157,7 @@ library NFTDescriptor {
         return
             string(
                 abi.encodePacked(
-                    'GainToken - ',
+                    'SwapLabsToken - ',
                     feeTier,
                     ' - ',
                     escapeQuotes(params.quoteTokenSymbol),

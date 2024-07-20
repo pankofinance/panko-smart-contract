@@ -28,7 +28,7 @@ const createFixtureLoader = waffle.createFixtureLoader
 
 type ThenArg<T> = T extends PromiseLike<infer U> ? U : T
 
-describe('GainV3Pool', () => {
+describe('SwapLabsV3Pool', () => {
   let wallet: Wallet, other: Wallet
 
   let token0: TestERC20
@@ -57,7 +57,7 @@ describe('GainV3Pool', () => {
   })
 
   beforeEach('deploy first fixture', async () => {
-    ; ({ token0, token1, token2, factory, createPool, swapTargetCallee, swapTargetRouter } = await loadFixture(
+    ;({ token0, token1, token2, factory, createPool, swapTargetCallee, swapTargetRouter } = await loadFixture(
       poolFixture
     ))
 
@@ -79,9 +79,9 @@ describe('GainV3Pool', () => {
       return [pool, poolFunctions]
     }
 
-      // default to the 30 bips pool
-      ;[pool0, pool0Functions] = await createPoolWrapped(feeAmount, tickSpacing, token0, token1)
-      ;[pool1, pool1Functions] = await createPoolWrapped(feeAmount, tickSpacing, token1, token2)
+    // default to the 30 bips pool
+    ;[pool0, pool0Functions] = await createPoolWrapped(feeAmount, tickSpacing, token0, token1)
+    ;[pool1, pool1Functions] = await createPoolWrapped(feeAmount, tickSpacing, token1, token2)
   })
 
   it('constructor initializes immutables', async () => {

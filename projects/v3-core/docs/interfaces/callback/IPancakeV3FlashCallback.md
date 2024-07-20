@@ -13,7 +13,7 @@ function pancakeV3FlashCallback(uint256 fee0, uint256 fee1, bytes data) external
 Called to `msg.sender` after transferring to the recipient from IPancakeV3Pool#flash.
 
 _In the implementation you must repay the pool the tokens sent by flash plus the computed fee amounts.
-The caller of this method must be checked to be a GainV3Pool deployed by the canonical PancakeV3Factory._
+The caller of this method must be checked to be a SwapLabsV3Pool deployed by the canonical PancakeV3Factory._
 
 #### Parameters
 

@@ -5,7 +5,7 @@ async function main() {
   const networkName = network.name
   const deployedContracts = await import(`@pancakeswap/v3-core/deployed/${networkName}.json`)
 
-  console.log('Verify GainV3PoolDeployer')
+  console.log('Verify SwapLabsV3PoolDeployer')
   await verifyContract(deployedContracts.V3PoolDeployer)
 
   console.log('Verify pancakeV3Factory')

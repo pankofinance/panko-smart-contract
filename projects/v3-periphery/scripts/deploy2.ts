@@ -90,10 +90,10 @@ async function main() {
   // await pancakeInterfaceMulticall.deployed()
   // console.log('PancakeInterfaceMulticall', pancakeInterfaceMulticall.address)
 
-  const GainInterfaceMulticallV2 = await ethers.getContractFactory('GainInterfaceMulticallV2')
-  const mancakeInterfaceMulticallV2 = await GainInterfaceMulticallV2.deploy()
+  const SwapLabsInterfaceMulticallV2 = await ethers.getContractFactory('SwapLabsInterfaceMulticallV2')
+  const mancakeInterfaceMulticallV2 = await SwapLabsInterfaceMulticallV2.deploy()
   await mancakeInterfaceMulticallV2.deployed()
-  console.log('GainInterfaceMulticallV2', mancakeInterfaceMulticallV2.address)
+  console.log('SwapLabsInterfaceMulticallV2', mancakeInterfaceMulticallV2.address)
 
   const V3Migrator = await ethers.getContractFactory('V3Migrator')
   const v3Migrator = await V3Migrator.deploy(

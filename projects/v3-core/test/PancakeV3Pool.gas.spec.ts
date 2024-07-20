@@ -24,7 +24,7 @@ import {
 
 const createFixtureLoader = waffle.createFixtureLoader
 
-describe('GainV3Pool gas tests', () => {
+describe('SwapLabsV3Pool gas tests', () => {
   let wallet: Wallet, other: Wallet
 
   let loadFixture: ReturnType<typeof createFixtureLoader>
@@ -78,7 +78,7 @@ describe('GainV3Pool gas tests', () => {
       let mint: MintFunction
 
       beforeEach('load the fixture', async () => {
-        ; ({ swapExact0For1, pool, mint, swapToHigherPrice, swapToLowerPrice } = await loadFixture(gasTestFixture))
+        ;({ swapExact0For1, pool, mint, swapToHigherPrice, swapToLowerPrice } = await loadFixture(gasTestFixture))
       })
 
       describe('#swapExact0For1', () => {

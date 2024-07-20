@@ -45,6 +45,7 @@ async function main() {
     stableSwapInfo_address,
     config.WNATIVE
   )
+  await smartRouter.deployed()
   console.log('SmartRouter deployed to:', smartRouter.address)
 
   /** MixedRouteQuoterV1 */
@@ -60,6 +61,7 @@ async function main() {
     stableSwapFactory_address,
     config.WNATIVE
   )
+  await mixedRouteQuoterV1.deployed()
   console.log('MixedRouteQuoterV1 deployed to:', mixedRouteQuoterV1.address)
 
   /** QuoterV2 */
@@ -69,6 +71,7 @@ async function main() {
     },
   })
   const quoterV2 = await QuoterV2.deploy(v3PoolDeployer_address, v3Factory_address, config.WNATIVE)
+  await quoterV2.deployed()
   console.log('QuoterV2 deployed to:', quoterV2.address)
 
   // await tryVerify(quoterV2, [v3PoolDeployer_address, v3Factory_address, config.WNATIVE])
@@ -80,6 +83,7 @@ async function main() {
     },
   })
   const tokenValidator = await TokenValidator.deploy(config.v2Factory, positionManager_address)
+  await tokenValidator.deployed()
   console.log('TokenValidator deployed to:', tokenValidator.address)
 
   // await tryVerify(tokenValidator, [config.v2Factory, positionManager_address])

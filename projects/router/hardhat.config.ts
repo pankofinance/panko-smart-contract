@@ -68,9 +68,7 @@ const config: HardhatUserConfig = {
   defaultNetwork: 'hardhat',
   networks: {
     hardhat: {
-      forking: {
-        url: bscTestnet.url || '',
-      },
+      allowUnlimitedContractSize: true,
     },
     ...(process.env.KEY_TESTNET && { bscTestnet }),
     ...(process.env.KEY_MAINNET && { bscMainnet }),

@@ -2,11 +2,11 @@
 pragma solidity =0.7.6;
 pragma abicoder v2;
 
-import '../GainV3Pool.sol';
+import '../SwapLabsV3Pool.sol';
 
 contract OutputCodeHash {
     function getInitCodeHash() public pure returns (bytes32) {
-        bytes memory bytecode = type(GainV3Pool).creationCode;
+        bytes memory bytecode = type(SwapLabsV3Pool).creationCode;
         return keccak256(abi.encodePacked(bytecode));
     }
 }

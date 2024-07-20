@@ -53,7 +53,7 @@ function pancakeV3SwapCallback(int256 amount0Delta, int256 amount1Delta, bytes d
 Called to `msg.sender` after executing a swap via IPancakeV3Pool#swap.
 
 _In the implementation you must pay the pool tokens owed for the swap.
-The caller of this method must be checked to be a GainV3Pool deployed by the canonical PancakeV3Factory.
+The caller of this method must be checked to be a SwapLabsV3Pool deployed by the canonical PancakeV3Factory.
 amount0Delta and amount1Delta can both be 0 if no tokens were swapped._
 
 #### Parameters
@@ -85,7 +85,7 @@ function pancakeV3MintCallback(uint256 amount0Owed, uint256 amount1Owed, bytes d
 Called to `msg.sender` after minting liquidity to a position from IPancakeV3Pool#mint.
 
 _In the implementation you must pay the pool tokens owed for the minted liquidity.
-The caller of this method must be checked to be a GainV3Pool deployed by the canonical PancakeV3Factory._
+The caller of this method must be checked to be a SwapLabsV3Pool deployed by the canonical PancakeV3Factory._
 
 #### Parameters
 
@@ -116,7 +116,7 @@ function pancakeV3FlashCallback(uint256 fee0, uint256 fee1, bytes data) external
 Called to `msg.sender` after transferring to the recipient from IPancakeV3Pool#flash.
 
 _In the implementation you must repay the pool the tokens sent by flash plus the computed fee amounts.
-The caller of this method must be checked to be a GainV3Pool deployed by the canonical PancakeV3Factory._
+The caller of this method must be checked to be a SwapLabsV3Pool deployed by the canonical PancakeV3Factory._
 
 #### Parameters
 

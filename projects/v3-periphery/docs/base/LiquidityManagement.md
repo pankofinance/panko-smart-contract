@@ -22,7 +22,7 @@ function pancakeV3MintCallback(uint256 amount0Owed, uint256 amount1Owed, bytes d
 Called to `msg.sender` after minting liquidity to a position from IPancakeV3Pool#mint.
 
 _In the implementation you must pay the pool tokens owed for the minted liquidity.
-The caller of this method must be checked to be a GainV3Pool deployed by the canonical PancakeV3Factory._
+The caller of this method must be checked to be a SwapLabsV3Pool deployed by the canonical PancakeV3Factory._
 
 #### Parameters
 

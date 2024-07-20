@@ -1,6 +1,6 @@
 # Solidity API
 
-## GainV3PoolDeployer
+## SwapLabsV3PoolDeployer
 
 ### Parameters
 
@@ -17,7 +17,7 @@ struct Parameters {
 ### parameters
 
 ```solidity
-struct GainV3PoolDeployer.Parameters parameters
+struct SwapLabsV3PoolDeployer.Parameters parameters
 ```
 
 Get the parameters to be used in constructing the pool, set transiently during pool creation.

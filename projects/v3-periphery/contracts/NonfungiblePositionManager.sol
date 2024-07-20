@@ -74,7 +74,7 @@ contract NonfungiblePositionManager is
         address _WETH9,
         address _tokenDescriptor_
     )
-        ERC721Permit('GainToken V3 Positions NFT-V1', 'MCS-V3-POS', '1')
+        ERC721Permit('SwapLabsToken V3 Positions NFT-V1', 'MCS-V3-POS', '1')
         PeripheryImmutableState(_deployer, _factory, _WETH9)
     {
         _tokenDescriptor = _tokenDescriptor_;
