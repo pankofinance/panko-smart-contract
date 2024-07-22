@@ -28,6 +28,8 @@ contract FeeHandler is Initializable, IFeeHandler, UUPSUpgradeable, OwnableUpgra
 
     mapping(address => bool) public operators;
 
+    event EthReceived(address indexed sender, uint256 amount);
+
     /**
      * Modifiers
      */
@@ -202,4 +204,11 @@ contract FeeHandler is Initializable, IFeeHandler, UUPSUpgradeable, OwnableUpgra
             IERC20(_token).safeTransfer(_to, IERC20(_token).balanceOf(address(this)));
         }
     }
+
+     /**
+     * Receive function to accept native tokens
+     */
+     receive() external payable {
+        emit EthReceived(msg.sender, msg.value);
+     }
 }
